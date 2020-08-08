@@ -12,8 +12,7 @@ class DijkstraAlgorithm:
 	"""
 
 	def __init__(self):
-		self.shortest_path = []
-		self.total_weight = 0
+		pass
 
 	# @dataclass(order=True)
 	# class PrioritizedNode():
@@ -40,15 +39,12 @@ class DijkstraAlgorithm:
 			# Add node to visited.
 			visited.add(current_node)
 
-			print(f"Current: {current_node, current_dist}, {fringe}")
-
 			# Add neighbours to priority queue.
 			neighbours = graph.get_neighbours(current_node)
 			for neighbour in neighbours:
 				if neighbour not in visited:
 					weight = graph.get_weight(current_node, neighbour) + current_dist
 					if (distances[neighbour] > weight):
-						print(f"Priority changed {neighbour}, {distances[neighbour]} => {weight}")
 						distances[neighbour] = weight
 						fringe.change_priority(neighbour, new_priority=weight)
 						self.edge_to[neighbour] = current_node 
@@ -63,27 +59,24 @@ class DijkstraAlgorithm:
 		return path[::-1]
 
 
-
-
-test_graph = graph.Graph()
-test_graph.add_node("A")
-test_graph.add_node("B")
-test_graph.add_node("C")
-test_graph.add_node("D")
-test_graph.add_node("F")
-
-test_graph.add_edge("A", "B", 3)
-test_graph.add_edge("A", "C", 1)
-test_graph.add_edge("B", "C", 1)
-test_graph.add_edge("B", "D", 1)
-test_graph.add_edge("C", "D", 3)
-test_graph.add_edge("B", "F", 7)
-
-
-dijkstra = DijkstraAlgorithm()
-dijkstra.run(test_graph, "F")		
-print(dijkstra.get_shortest_path(to="C"))
+def main():
+	test_graph = graph.Graph()
+	test_graph.add_node("A")
+	test_graph.add_node("B")
+	test_graph.add_node("C")
+	test_graph.add_node("D")
+	test_graph.add_node("F")
+	
+	test_graph.add_edge("A", "B", 3)
+	test_graph.add_edge("A", "C", 1)
+	test_graph.add_edge("B", "C", 1)
+	test_graph.add_edge("B", "D", 1)
+	test_graph.add_edge("C", "D", 3)
+	test_graph.add_edge("B", "F", 7)	
+	
+	dijkstra = DijkstraAlgorithm()
+	dijkstra.run(test_graph, "D")		
+	print(dijkstra.get_shortest_path(to="A"))
 		
-
-
-
+if __name__ == '__main__':
+	main()
