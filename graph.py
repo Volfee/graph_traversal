@@ -9,8 +9,7 @@ class Graph:
 		self.adjacency_list = dict()
 
 	def add_node(self, value):
-		node = self.GraphNode(value)
-		self.adjacency_list[value] = node
+		self.adjacency_list[value] = self.GraphNode(value)
 
 	def add_edge(self, val1, val2, weight, directional=False):
 		"""
@@ -24,6 +23,9 @@ class Graph:
 			node2.add_edge(node1, weight)
 
 	def get_node(self, value):
+		"""
+		Retuns node object based on value.
+		"""
 		return self.adjacency_list[value]
 
 	def has_edge(self, val1, val2):
@@ -45,8 +47,16 @@ class Graph:
 
 		return node1.get_weight(node2)
 
+	def get_neighbours(self, value):
+		"""
+		Returns neighbours of the node with value.
+		"""
+		node = self.get_node(value)
+		neighbours = [key.value for key in node.edges.keys()]
+		return neighbours
+
 	def getNodes(self):
-		return set(self.adjacency_list.values())
+		return self.adjacency_list.keys()
 
 	def __repr__(self):
 		return "Graph()"
